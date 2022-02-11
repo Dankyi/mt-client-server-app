@@ -20,10 +20,10 @@ public class FeedBinGUI extends JFrame {
         // Create the menu components
         jmbTop = new JMenuBar();
         binMenu = new JMenu("Bin");
-        inspect = new JMenuItem("Inspect the Bin ...");
-        fill = new JMenuItem("Add More Product ...");
-        removeQty = new JMenuItem("Remove some Quantity of the Product ...");
-        flush = new JMenuItem("Flush the Bin ...");
+        inspect = new JMenuItem("Inspect the Bin");
+        fill = new JMenuItem("Add Quantity");
+        removeQty = new JMenuItem("Remove Quantity");
+        flush = new JMenuItem("Flush the Bin");
         exit = new JMenuItem("Exit");
         binMenu.add(inspect);
         binMenu.add(fill);

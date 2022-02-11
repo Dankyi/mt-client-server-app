@@ -46,13 +46,13 @@ public class RemoveQtyDialog extends JDialog implements ActionListener {
             if (volumeInput.isEmpty()) {
                 JOptionPane.showMessageDialog(this,
                         "Quantity missing. Enter a value to proceed.",
-                        "Error",
+                        "Error!",
                         JOptionPane.ERROR_MESSAGE,
                         null);
             } else if (!volumeInput.matches(pattern)) {
                 JOptionPane.showMessageDialog(this,
                         "Quantity must be positive number or decimal.",
-                        "Error",
+                        "Error!",
                         JOptionPane.ERROR_MESSAGE,
                         null);
             } else {
@@ -61,14 +61,14 @@ public class RemoveQtyDialog extends JDialog implements ActionListener {
                 if (volume > currentVolume) {
                     JOptionPane.showMessageDialog(this,
                             "Cannot remove more than what is currently available.",
-                            "Error",
+                            "Error!",
                             JOptionPane.ERROR_MESSAGE,
                             null);
                 } else {
                     bin.removeProduct(volume);
                     JOptionPane.showMessageDialog(this,
-                            "Quantity successfully removed!",
-                            "Fill Report",
+                            "Quantity removed successfully.",
+                            "Success!",
                             JOptionPane.INFORMATION_MESSAGE,
                             null);
                     dispose();

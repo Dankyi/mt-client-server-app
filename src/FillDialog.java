@@ -38,28 +38,40 @@ public class FillDialog extends JDialog implements ActionListener {
 
     // button event handler
     public void actionPerformed(ActionEvent event) {
-        double volume;
         String butLabel = event.getActionCommand();
 
         if (butLabel.equals("Apply")) {
-            try {
-                volume = Double.parseDouble(input.getText());
-                if (volume < 0.0)
-                    throw new NumberFormatException();
-                if (!bin.addProduct(volume)) // interact with the bin object here
-                    throw new FillException();
+            // Regex for all positive numbers including decimals
+            String pattern = "^[0-9]\\d*(\\.\\d+)?$";
+            String volumeInput = input.getText();
+            if (volumeInput.isEmpty()) {
                 JOptionPane.showMessageDialog(this,
-                        "Addition Confirmed",
-                        "Fill Report",
-                        JOptionPane.INFORMATION_MESSAGE,
+                        "Quantity missing. Enter a value to proceed.",
+                        "Error!",
+                        JOptionPane.ERROR_MESSAGE,
                         null);
-                dispose();
-            } catch (FillException e) {
+            } else if (!volumeInput.matches(pattern)) {
                 JOptionPane.showMessageDialog(this,
-                        "Not enough room in the bin",
-                        "Fill Report",
-                        JOptionPane.WARNING_MESSAGE,
+                        "Quantity must be positive number or decimal.",
+                        "Error!",
+                        JOptionPane.ERROR_MESSAGE,
                         null);
+            } else {
+                double volume = Double.parseDouble(volumeInput);
+                if (!bin.addProduct(volume)) {
+                    JOptionPane.showMessageDialog(this,
+                            "Not enough room in the bin.",
+                            "Error!",
+                            JOptionPane.ERROR_MESSAGE,
+                            null);
+                } else {
+                    JOptionPane.showMessageDialog(this,
+                            "Quantity added successfully.",
+                            "Success!",
+                            JOptionPane.INFORMATION_MESSAGE,
+                            null);
+                    dispose();
+                }
             }
         } else if(butLabel.equals("Clear")) {
             input.setText("");
@@ -68,4 +80,3 @@ public class FillDialog extends JDialog implements ActionListener {
         }
     }
 }
-class FillException extends RuntimeException {}
