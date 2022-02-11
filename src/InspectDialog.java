@@ -28,7 +28,7 @@ public class InspectDialog extends JDialog {
         label[1] = new JLabel(String.valueOf(bin.getBinNumber()));
         label[3] = new JLabel(bin.getProductName());
         label[5] = new JLabel(String.valueOf(bin.getMaxVolume()));
-        label[7] = new JLabel(String.valueOf(bin.getcurrentVolume()));
+        label[7] = new JLabel(String.valueOf(bin.getCurrentVolume()));
         OKButton = new JButton("OK");
         OKButton.addActionListener (new ActionListener() {
             public void actionPerformed (ActionEvent evt) {

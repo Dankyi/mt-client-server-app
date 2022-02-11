@@ -1,12 +1,13 @@
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class FeedBinGUI extends JFrame {
     private JMenuBar jmbTop;
     private JMenu binMenu;
     private JMenuItem inspect;
     private JMenuItem fill;
+    private JMenuItem removeQty;
     private JMenuItem flush;
     private JMenuItem exit;
     // here's the system object behind the interface
@@ -21,10 +22,12 @@ public class FeedBinGUI extends JFrame {
         binMenu = new JMenu("Bin");
         inspect = new JMenuItem("Inspect the Bin ...");
         fill = new JMenuItem("Add More Product ...");
+        removeQty = new JMenuItem("Remove some Quantity of the Product ...");
         flush = new JMenuItem("Flush the Bin ...");
         exit = new JMenuItem("Exit");
         binMenu.add(inspect);
         binMenu.add(fill);
+        binMenu.add(removeQty);
         binMenu.add(flush);
         binMenu.add(new JSeparator());
         binMenu.add(exit);
@@ -39,15 +42,22 @@ public class FeedBinGUI extends JFrame {
 
         inspect.addActionListener (new ActionListener() {
             public void actionPerformed (ActionEvent evt) {
-                InspectDialog id = new InspectDialog(FeedBinGUI.this,true,bin);
+                InspectDialog id = new InspectDialog(FeedBinGUI.this,true, bin);
                 id.setVisible(true);
             }
         });
 
         fill.addActionListener (new ActionListener() {
             public void actionPerformed (ActionEvent evt) {
-                FillDialog fd = new FillDialog(FeedBinGUI.this,true,bin);
+                FillDialog fd = new FillDialog(FeedBinGUI.this,true, bin);
                 fd.setVisible(true);
+            }
+        });
+
+        removeQty.addActionListener (new ActionListener() {
+            public void actionPerformed (ActionEvent evt) {
+                RemoveQtyDialog rd = new RemoveQtyDialog(FeedBinGUI.this,true, bin);
+                rd.setVisible(true);
             }
         });
 
@@ -73,6 +83,4 @@ public class FeedBinGUI extends JFrame {
         demo.setLocation(400,400);
         demo.setVisible(true);
     }
-
-
 }

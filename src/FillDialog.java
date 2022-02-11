@@ -39,7 +39,6 @@ public class FillDialog extends JDialog implements ActionListener {
     // button event handler
     public void actionPerformed(ActionEvent event) {
         double volume;
-        String outcome;
         String butLabel = event.getActionCommand();
 
         if (butLabel.equals("Apply")) {
@@ -67,6 +66,6 @@ public class FillDialog extends JDialog implements ActionListener {
         } else { // must have pressed the cancel button
             dispose();
         }
-    } // method actionPerformed
-} // class AddDialog
+    }
+}
 class FillException extends RuntimeException {}

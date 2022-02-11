@@ -68,7 +68,7 @@ public class FeedBin {
         return maxVolume;
     }
 
-    public double getcurrentVolume() {
+    public double getCurrentVolume() {
         return currentVolume;
     }
 }
