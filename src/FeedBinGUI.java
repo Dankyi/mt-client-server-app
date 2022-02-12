@@ -78,12 +78,19 @@ public class FeedBinGUI extends JFrame {
             public void actionPerformed (ActionEvent evt) {
                 AddNewProdDialog rd = new AddNewProdDialog(FeedBinGUI.this,true, bin);
                 rd.setVisible(true);
+                
+                if (bin.getProductName().isEmpty()) {
+                    disableFields();
+                } else {
+                    enableFields();
+                }
             }
         });
 
         flush.addActionListener (new ActionListener() {
             public void actionPerformed (ActionEvent evt) {
                 bin.flush();
+                disableFields();
                 JOptionPane.showMessageDialog(
                         FeedBinGUI.this,
                         "The bin is now empty",
@@ -102,5 +109,19 @@ public class FeedBinGUI extends JFrame {
         FeedBinGUI demo = new FeedBinGUI();
         demo.setLocation(400,400);
         demo.setVisible(true);
+    }
+
+    private void disableFields() {
+        fill.setEnabled(false);
+        removeQty.setEnabled(false);
+        renameProd.setEnabled(false);
+        flush.setEnabled(false);
+    }
+
+    private void enableFields() {
+        fill.setEnabled(true);
+        removeQty.setEnabled(true);
+        renameProd.setEnabled(true);
+        flush.setEnabled(true);
     }
 }

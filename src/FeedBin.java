@@ -43,6 +43,7 @@ public class FeedBin {
 
     // method flush - used to completely empty the bin
     public void flush() {
+        productName = "";
         currentVolume = 0.0;
     }
 
