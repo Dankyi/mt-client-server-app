@@ -28,6 +28,19 @@ public class FeedBin {
             return false;
     }
 
+    public void setBinNumber(int binNumber) {
+        this.binNumber = binNumber;
+    }
+
+
+    public void setMaxVolume(double maxVolume) {
+        this.maxVolume = maxVolume;
+    }
+
+    public void setCurrentVolume(double currentVolume) {
+        this.currentVolume = currentVolume;
+    }
+
     // method flush - used to completely empty the bin
     public void flush() {
         currentVolume = 0.0;

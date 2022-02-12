@@ -13,7 +13,7 @@ public class RemoveQtyDialog extends JDialog implements ActionListener {
     private JButton cancelButton;
 
     RemoveQtyDialog(FeedBinGUI parent, boolean modal, FeedBin binObject) {
-        super(parent, "Bin Quantity Subtraction", modal); // call superclass constructor
+        super(parent, "Bin Quantity Deduction", modal); // call superclass constructor
         bin = binObject;
         panel1 = new JPanel();
         panel2 = new JPanel();

@@ -9,6 +9,7 @@ public class FeedBinGUI extends JFrame {
     private JMenuItem fill;
     private JMenuItem removeQty;
     private JMenuItem flush;
+    private JMenuItem newProd;
     private JMenuItem exit;
     // here's the system object behind the interface
     private FeedBin bin;
@@ -24,11 +25,13 @@ public class FeedBinGUI extends JFrame {
         fill = new JMenuItem("Add Quantity");
         removeQty = new JMenuItem("Remove Quantity");
         flush = new JMenuItem("Flush the Bin");
+        newProd = new JMenuItem("Add New Product to Bin");
         exit = new JMenuItem("Exit");
         binMenu.add(inspect);
         binMenu.add(fill);
         binMenu.add(removeQty);
         binMenu.add(flush);
+        binMenu.add(newProd);
         binMenu.add(new JSeparator());
         binMenu.add(exit);
         jmbTop.add(binMenu);
@@ -57,6 +60,13 @@ public class FeedBinGUI extends JFrame {
         removeQty.addActionListener (new ActionListener() {
             public void actionPerformed (ActionEvent evt) {
                 RemoveQtyDialog rd = new RemoveQtyDialog(FeedBinGUI.this,true, bin);
+                rd.setVisible(true);
+            }
+        });
+
+        newProd.addActionListener (new ActionListener() {
+            public void actionPerformed (ActionEvent evt) {
+                AddNewProdDialog rd = new AddNewProdDialog(FeedBinGUI.this,true, bin);
                 rd.setVisible(true);
             }
         });

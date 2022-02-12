@@ -21,10 +21,10 @@ public class InspectDialog extends JDialog {
         panel = new JPanel();
         panel.setLayout(new GridLayout(4,2) );
         label = new JLabel[8];
-        label[0] = new JLabel("Bin Number");
-        label[2] = new JLabel("Contains");
-        label[4] = new JLabel("Maximum Volume");
-        label[6] = new JLabel("Current Volume");
+        label[0] = new JLabel("Bin Number: ");
+        label[2] = new JLabel("Contains: ");
+        label[4] = new JLabel("Maximum Volume: ");
+        label[6] = new JLabel("Current Volume: ");
         label[1] = new JLabel(String.valueOf(bin.getBinNumber()));
         label[3] = new JLabel(bin.getProductName());
         label[5] = new JLabel(String.valueOf(bin.getMaxVolume()));
