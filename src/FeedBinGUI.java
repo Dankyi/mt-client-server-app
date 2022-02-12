@@ -12,12 +12,13 @@ public class FeedBinGUI extends JFrame {
     private JMenuItem flush;
     private JMenuItem newProd;
     private JMenuItem exit;
+
     // here's the system object behind the interface
     private FeedBin bin;
 
     public FeedBinGUI() {
         // create a feed bin
-        bin = new FeedBin(34, "Weety Bits");
+        bin = new FeedBin(1, "--");
 
         // Create the menu components
         jmbTop = new JMenuBar();
@@ -39,6 +40,8 @@ public class FeedBinGUI extends JFrame {
         binMenu.add(exit);
         jmbTop.add(binMenu);
         setJMenuBar(jmbTop);
+
+        disableFields();
 
         exit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
@@ -78,11 +81,12 @@ public class FeedBinGUI extends JFrame {
             public void actionPerformed (ActionEvent evt) {
                 AddNewProdDialog rd = new AddNewProdDialog(FeedBinGUI.this,true, bin);
                 rd.setVisible(true);
-                
-                if (bin.getProductName().isEmpty()) {
+
+                if (bin.getProductName().equals("--")) {
                     disableFields();
                 } else {
                     enableFields();
+                    newProd.setEnabled(false);
                 }
             }
         });
@@ -91,17 +95,18 @@ public class FeedBinGUI extends JFrame {
             public void actionPerformed (ActionEvent evt) {
                 bin.flush();
                 disableFields();
+                newProd.setEnabled(true);
                 JOptionPane.showMessageDialog(
                         FeedBinGUI.this,
-                        "The bin is now empty",
+                        "The bin is now empty.",
                         "Flush Confirmation",
                         JOptionPane.INFORMATION_MESSAGE,
                         null);
             }
         });
+
         setTitle ("Feed Bin Controller");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-
         setSize(400, 200);
     }
 

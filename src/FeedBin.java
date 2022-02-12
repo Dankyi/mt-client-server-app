@@ -32,7 +32,6 @@ public class FeedBin {
         this.binNumber = binNumber;
     }
 
-
     public void setMaxVolume(double maxVolume) {
         this.maxVolume = maxVolume;
     }
@@ -43,7 +42,7 @@ public class FeedBin {
 
     // method flush - used to completely empty the bin
     public void flush() {
-        productName = "";
+        productName = "--";
         currentVolume = 0.0;
     }
 

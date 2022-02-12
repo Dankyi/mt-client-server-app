@@ -21,6 +21,8 @@ public class AddNewProdDialog extends JDialog implements ActionListener {
         binNumPanel = new JPanel();
         binNumLabel = new JLabel("Bin Number:      ");
         binNumTF = new JTextField(10);
+        binNumTF.setText(String.valueOf(bin.getBinNumber()));
+        binNumTF.setEnabled(false);
         binNumPanel.add(binNumLabel);
         binNumPanel.add(binNumTF);
         getContentPane().add(binNumPanel, "North");
@@ -44,8 +46,8 @@ public class AddNewProdDialog extends JDialog implements ActionListener {
         buttonsPanel.add(cancelButton);
         getContentPane().add(buttonsPanel, "South");
         pack();
-
     }
+
     @Override
     public void actionPerformed(ActionEvent event) {
         String binNum = binNumTF.getText();
@@ -53,41 +55,21 @@ public class AddNewProdDialog extends JDialog implements ActionListener {
         String btnClicked = event.getActionCommand();
 
         if (btnClicked.equals("Add Product")) {
-            if (binNum.isEmpty()) {
+            if (prodName.isEmpty()) {
                 JOptionPane.showMessageDialog(this,
-                        "Bin number missing. Enter a number to proceed.",
+                        "Product Name missing. Enter a name to proceed.",
                         "Error!",
                         JOptionPane.ERROR_MESSAGE,
                         null);
             } else {
-                // Regex for positive numbers starting from 1
-                String pattern = "[1-9]\\d*";
-                if (!binNum.matches(pattern)) {
-                    JOptionPane.showMessageDialog(this,
-                            "Bin Number must be a digit starting from 1",
-                            "Error!",
-                            JOptionPane.ERROR_MESSAGE,
-                            null);
-                } else if (prodName.isEmpty()) {
-                    JOptionPane.showMessageDialog(this,
-                            "Product Name missing. Enter a name to proceed.",
-                            "Error!",
-                            JOptionPane.ERROR_MESSAGE,
-                            null);
-                } else {
-                    //bin = new FeedBin(Integer.parseInt(binNum), prodName);
-                    bin.setBinNumber(Integer.parseInt(binNum));
-                    bin.setProductName(prodName);
-                    bin.setMaxVolume(40.0);
-                    bin.setCurrentVolume(0.0);
-                    JOptionPane.showMessageDialog(this,
-                            "'" + prodName + "' " + "has been added to Bin '"
-                                    + binNum + "' successfully.",
-                            "Success!",
-                            JOptionPane.INFORMATION_MESSAGE,
-                            null);
-                    dispose();
-                }
+                bin.setProductName(prodName);
+                JOptionPane.showMessageDialog(this,
+                        "'" + prodName + "' " + "has been added to Bin '"
+                                + binNum + "' successfully.",
+                        "Success!",
+                        JOptionPane.INFORMATION_MESSAGE,
+                        null);
+                dispose();
             }
         } else if (btnClicked.equals("Clear")) {
             binNumTF.setText("");
