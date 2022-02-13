@@ -107,13 +107,7 @@ public class FeedBinGUI extends JFrame {
 
         setTitle ("Feed Bin Controller");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setSize(400, 200);
-    }
-
-    public static void main (String args[]) {
-        FeedBinGUI demo = new FeedBinGUI();
-        demo.setLocation(400,400);
-        demo.setVisible(true);
+        setSize(400, 300);
     }
 
     private void disableFields() {
@@ -128,5 +122,11 @@ public class FeedBinGUI extends JFrame {
         removeQty.setEnabled(true);
         renameProd.setEnabled(true);
         flush.setEnabled(true);
+    }
+
+    public static void main (String[] args) {
+        FeedBinGUI demo = new FeedBinGUI();
+        demo.setLocation(400,400);
+        demo.setVisible(true);
     }
 }

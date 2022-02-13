@@ -12,6 +12,7 @@ public class AddNewProdDialog extends JDialog implements ActionListener {
     private JLabel prodNameLabel;
     private JPanel buttonsPanel;
     private JButton addProdButton;
+    private JButton editBinNumButton;
     private JButton clearButton;
     private JButton cancelButton;
 
@@ -19,7 +20,7 @@ public class AddNewProdDialog extends JDialog implements ActionListener {
         super(parent, "Add New Product", modal);
         bin = binObject;
         binNumPanel = new JPanel();
-        binNumLabel = new JLabel("Bin Number:      ");
+        binNumLabel = new JLabel("Bin Number (Current): ");
         binNumTF = new JTextField(10);
         binNumTF.setText(String.valueOf(bin.getBinNumber()));
         binNumTF.setEnabled(false);
@@ -28,7 +29,7 @@ public class AddNewProdDialog extends JDialog implements ActionListener {
         getContentPane().add(binNumPanel, "North");
 
         prodNamePanel = new JPanel();
-        prodNameLabel = new JLabel("Product Name: ");
+        prodNameLabel = new JLabel("Name of Product:         ");
         prodNameTF = new JTextField(10);
         prodNamePanel.add(prodNameLabel);
         prodNamePanel.add(prodNameTF);
@@ -36,12 +37,15 @@ public class AddNewProdDialog extends JDialog implements ActionListener {
 
         buttonsPanel = new JPanel();
         addProdButton = new JButton("Add Product");
+        editBinNumButton = new JButton("Edit Bin Number");
         clearButton = new JButton("Clear");
         cancelButton = new JButton("Cancel");
         addProdButton.addActionListener(this);
+        editBinNumButton.addActionListener(this);
         clearButton.addActionListener(this);
         cancelButton.addActionListener(this);
         buttonsPanel.add(addProdButton);
+        buttonsPanel.add(editBinNumButton);
         buttonsPanel.add(clearButton);
         buttonsPanel.add(cancelButton);
         getContentPane().add(buttonsPanel, "South");
@@ -55,24 +59,50 @@ public class AddNewProdDialog extends JDialog implements ActionListener {
         String btnClicked = event.getActionCommand();
 
         if (btnClicked.equals("Add Product")) {
-            if (prodName.isEmpty()) {
+            if (binNum.isEmpty()) {
                 JOptionPane.showMessageDialog(this,
-                        "Product Name missing. Enter a name to proceed.",
+                        "Bin number missing. Enter a number to proceed.",
                         "Error!",
                         JOptionPane.ERROR_MESSAGE,
                         null);
             } else {
-                bin.setProductName(prodName);
-                JOptionPane.showMessageDialog(this,
-                        "'" + prodName + "' " + "has been added to Bin '"
-                                + binNum + "' successfully.",
-                        "Success!",
-                        JOptionPane.INFORMATION_MESSAGE,
-                        null);
-                dispose();
+                // Regex for positive numbers starting from 1
+                String pattern = "[1-9]\\d*";
+                if (!binNum.matches(pattern)) {
+                    JOptionPane.showMessageDialog(this,
+                            "Bin Number must be a digit starting from 1",
+                            "Error!",
+                            JOptionPane.ERROR_MESSAGE,
+                            null);
+                } else if (prodName.isEmpty()) {
+                    JOptionPane.showMessageDialog(this,
+                            "Product Name missing. Enter a name to proceed.",
+                            "Error!",
+                            JOptionPane.ERROR_MESSAGE,
+                            null);
+                } else {
+                    //bin = new FeedBin(Integer.parseInt(binNum), prodName);
+                    bin.setBinNumber(Integer.parseInt(binNum));
+                    bin.setProductName(prodName);
+                    bin.setMaxVolume(40.0);
+                    bin.setCurrentVolume(0.0);
+                    JOptionPane.showMessageDialog(this,
+                            "'" + prodName + "' " + "has been added to Bin '"
+                                    + binNum + "' successfully.",
+                            "Success!",
+                            JOptionPane.INFORMATION_MESSAGE,
+                            null);
+                    dispose();
+                }
             }
+        } else if (btnClicked.equals("Edit Bin Number")) {
+            binNumTF.setEnabled(true);
+            editBinNumButton.setText("Reset Number");
+        } else if (btnClicked.equals("Reset Number")) {
+            binNumTF.setText(String.valueOf(bin.getBinNumber()));
+            binNumTF.setEnabled(false);
+            editBinNumButton.setText("Edit Bin Number");
         } else if (btnClicked.equals("Clear")) {
-            binNumTF.setText("");
             prodNameTF.setText("");
         } else {
             dispose();
