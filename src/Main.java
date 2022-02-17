@@ -12,7 +12,7 @@ public class Main {
         feedBinArray.add(feedBin2);
         feedBinArray.add(feedBin3);
 
-        // FeedBinGUI
+        // FeedBinGUI in 3 threads
         FeedBinGUI fbGUI1 = new FeedBinGUI(feedBinArray.get(0));
         FeedBinGUI fbGUI2 = new FeedBinGUI(feedBinArray.get(1));
         FeedBinGUI fbGUI3 = new FeedBinGUI(feedBinArray.get(2));
@@ -20,10 +20,11 @@ public class Main {
         Thread fbThread2 = new Thread(fbGUI2);
         Thread fbThread3 = new Thread(fbGUI3);
 
-        // SupervisorGUI
+        // SupervisorGUI in 1 thread
         SupervisorGUI supGUI = new SupervisorGUI(feedBinArray);
         Thread supThread1 = new Thread(supGUI);
 
+        // Start the 4 threads
         fbThread1.start();
         fbThread2.start();
         fbThread3.start();

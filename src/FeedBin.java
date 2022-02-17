@@ -33,14 +33,17 @@ public class FeedBin extends Observable {
 
     public void setBinNumber(int binNumber) {
         this.binNumber = binNumber;
+        notifyObs();
     }
 
     public void setMaxVolume(double maxVolume) {
         this.maxVolume = maxVolume;
+        notifyObs();
     }
 
     public void setCurrentVolume(double currentVolume) {
         this.currentVolume = currentVolume;
+        notifyObs();
     }
 
     // method flush - used to completely empty the bin
@@ -91,8 +94,8 @@ public class FeedBin extends Observable {
         return currentVolume;
     }
 
+    // fire notifications to any registered Observers
     private void notifyObs() {
-        // fire notifications to any registered Observers
         setChanged();
         notifyObservers();
     }

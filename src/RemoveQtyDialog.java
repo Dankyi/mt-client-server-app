@@ -60,7 +60,8 @@ public class RemoveQtyDialog extends JDialog implements ActionListener {
                 double volume = Double.parseDouble(volumeInput);
                 if (volume > currentVolume) {
                     JOptionPane.showMessageDialog(this,
-                            "Cannot remove more than what is currently available.",
+                            "Cannot remove more than what " +
+                                    "is currently available.",
                             "Error!",
                             JOptionPane.ERROR_MESSAGE,
                             null);

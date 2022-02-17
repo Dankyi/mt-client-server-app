@@ -7,7 +7,7 @@ import java.util.Observer;
 
 public class SupervisorGUI extends JFrame implements Runnable, Observer {
     private FeedBin bin;
-    private ArrayList<FeedBin> feedBins = new ArrayList<>();
+    private ArrayList<FeedBin> feedBinsArray = new ArrayList<>();
     private JMenuBar jmbTop;
     private JMenu binMenu;
     private JMenuItem checkBatch;
@@ -21,7 +21,7 @@ public class SupervisorGUI extends JFrame implements Runnable, Observer {
         for (FeedBin fb : feedBinArray) {
             bin = fb;
             bin.addObserver(this);
-            feedBins.add(bin);
+            feedBinsArray.add(bin);
         }
 
         initSupGUI();
@@ -52,14 +52,16 @@ public class SupervisorGUI extends JFrame implements Runnable, Observer {
 
         checkBinsStatus.addActionListener(new ActionListener() {
             public void actionPerformed (ActionEvent evt) {
-                CheckStatusDialog binStatus = new CheckStatusDialog(SupervisorGUI.this, true, feedBins);
+                CheckStatusDialog binStatus = new CheckStatusDialog(
+                        SupervisorGUI.this, true, feedBinsArray);
                 binStatus.setVisible(true);
             }
         });
 
         checkBatch.addActionListener(new ActionListener() {
             public void actionPerformed (ActionEvent evt) {
-                CheckBatchDialog checkatch = new CheckBatchDialog(SupervisorGUI.this, true, feedBins);
+                CheckBatchDialog checkatch = new CheckBatchDialog(
+                        SupervisorGUI.this, true, feedBinsArray);
                 checkatch.setVisible(true);
             }
         });
@@ -77,7 +79,7 @@ public class SupervisorGUI extends JFrame implements Runnable, Observer {
     public void update(Observable o, Object arg) {
         System.out.println("=============================");
         System.out.println("SupervisorGUI update called");
-        for (FeedBin fb : feedBins) {
+        for (FeedBin fb : feedBinsArray) {
             System.out.println("Bin Number: " + fb.getBinNumber() +
                     "\nProduct Name: " + fb.getProductName() +
                     "\nMaximum Volume: " + fb.getMaxVolume() +

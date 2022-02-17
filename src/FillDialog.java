@@ -14,7 +14,7 @@ public class FillDialog extends JDialog implements ActionListener {
 
     // FillDialog constructor
     FillDialog(FeedBinGUI parent, boolean modal, FeedBin binObject) {
-        super (parent, "Bin Filling", modal); // call superclass constructor
+        super(parent, "Bin Filling", modal); // call superclass constructor
         bin = binObject;
         panel1 = new JPanel();
         panel2 = new JPanel();

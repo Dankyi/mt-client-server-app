@@ -62,7 +62,8 @@ public class RenameProdDialog extends JDialog implements ActionListener {
                         null);
             } else if (!bin.setProductName(newName)) {
                 JOptionPane.showMessageDialog(this,
-                        "Product name cannot be changed since there is some quantity left in the bin.",
+                        "Product name cannot be changed since " +
+                                "there is some quantity left in the bin.",
                         "Error!",
                         JOptionPane.ERROR_MESSAGE,
                         null);

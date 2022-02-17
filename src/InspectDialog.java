@@ -13,11 +13,10 @@ public class InspectDialog extends JDialog {
 
     // InspectDialog constructor
     InspectDialog(FeedBinGUI parent, boolean modal, FeedBin binObject) {
-        super (parent, "Bin Inspection", modal); // call superclass constructor
+        super(parent, "Bin Inspection", modal); // call superclass constructor
         int i;
         bin = binObject;
-        getContentPane ().setLayout
-                (new BoxLayout (getContentPane (), BoxLayout.Y_AXIS));
+        getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
         panel = new JPanel();
         panel.setLayout(new GridLayout(4,2) );
         label = new JLabel[8];

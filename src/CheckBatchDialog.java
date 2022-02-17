@@ -16,7 +16,8 @@ public class CheckBatchDialog extends JDialog {
         super(parent, "Batch Inspection", modal);
         Box box = Box.createVerticalBox();
         panel = new JPanel();
-        prodNameLabel = new JLabel("A batch cannot be made. View 'Batch Report' for more information.");
+        prodNameLabel = new JLabel("A batch cannot be made. " +
+                "View 'Batch Report' for more information.");
         currVolumeLabel = new JLabel();
 
         for (FeedBin feedBin : feedBins) {
@@ -40,14 +41,16 @@ public class CheckBatchDialog extends JDialog {
                         + prodNamesArray.get(1));
 
                 currVolumeLabel.setText("with each having a current volume of: " +
-                        currVolArray.get(0) + " and " + currVolArray.get(1) + " respectively.");
+                        currVolArray.get(0) + " and " + currVolArray.get(1) +
+                        " cubic metres respectively.");
             } else {
                 prodNameLabel.setText("A batch can be made out from any two of these three " +
                         "currently available products: " + prodNamesArray.get(0) +
                         ", " + prodNamesArray.get(1) + " and " + prodNamesArray.get(2));
 
-                currVolumeLabel.setText("with each having a current volume of: " + currVolArray.get(0)
-                        + ", " + currVolArray.get(1) + " and " + currVolArray.get(2) + " respectively.");
+                currVolumeLabel.setText("with each having a current volume of: " +
+                        currVolArray.get(0) + ", " + currVolArray.get(1) + " and " +
+                        currVolArray.get(2) + " cubic metres respectively.");
             }
         }
 
@@ -57,6 +60,7 @@ public class CheckBatchDialog extends JDialog {
                 dispose();
             }
         });
+
         box.add(prodNameLabel);
         box.add(currVolumeLabel);
         getContentPane().add(box);

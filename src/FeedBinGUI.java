@@ -52,37 +52,42 @@ public class FeedBinGUI extends JFrame implements Runnable, Observer {
             }
         });
 
-        inspect.addActionListener (new ActionListener() {
-            public void actionPerformed (ActionEvent evt) {
-                InspectDialog id = new InspectDialog(FeedBinGUI.this,true, bin);
+        inspect.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                InspectDialog id = new InspectDialog(
+                        FeedBinGUI.this, true, bin);
                 id.setVisible(true);
             }
         });
 
-        fill.addActionListener (new ActionListener() {
-            public void actionPerformed (ActionEvent evt) {
-                FillDialog fd = new FillDialog(FeedBinGUI.this,true, bin);
+        fill.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                FillDialog fd = new FillDialog(
+                        FeedBinGUI.this, true, bin);
                 fd.setVisible(true);
             }
         });
 
-        removeQty.addActionListener (new ActionListener() {
-            public void actionPerformed (ActionEvent evt) {
-                RemoveQtyDialog rd = new RemoveQtyDialog(FeedBinGUI.this,true, bin);
+        removeQty.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                RemoveQtyDialog rd = new RemoveQtyDialog(
+                        FeedBinGUI.this, true, bin);
                 rd.setVisible(true);
             }
         });
 
-        renameProd.addActionListener (new ActionListener() {
-            public void actionPerformed (ActionEvent evt) {
-                RenameProdDialog rd = new RenameProdDialog(FeedBinGUI.this,true, bin);
+        renameProd.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                RenameProdDialog rd = new RenameProdDialog(
+                        FeedBinGUI.this, true, bin);
                 rd.setVisible(true);
             }
         });
 
-        newProd.addActionListener (new ActionListener() {
-            public void actionPerformed (ActionEvent evt) {
-                AddNewProdDialog rd = new AddNewProdDialog(FeedBinGUI.this,true, bin);
+        newProd.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                AddNewProdDialog rd = new AddNewProdDialog(
+                        FeedBinGUI.this, true, bin);
                 rd.setVisible(true);
 
                 if (bin.getProductName().equals("--")) {
@@ -94,8 +99,8 @@ public class FeedBinGUI extends JFrame implements Runnable, Observer {
             }
         });
 
-        flush.addActionListener (new ActionListener() {
-            public void actionPerformed (ActionEvent evt) {
+        flush.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 bin.flush();
                 disableFields();
                 newProd.setEnabled(true);
