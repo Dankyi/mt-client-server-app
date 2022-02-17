@@ -16,8 +16,8 @@ public class CheckBatchDialog extends JDialog {
         super(parent, "Batch Inspection", modal);
         Box box = Box.createVerticalBox();
         panel = new JPanel();
-        prodNameLabel = new JLabel("A batch cannot be made. " +
-                "View 'Batch Report' for more information.");
+        prodNameLabel = new JLabel("A batch cannot be made because there is " +
+                "currently no quantity of products available in any of the bins.");
         currVolumeLabel = new JLabel();
 
         for (FeedBin feedBin : feedBins) {
@@ -52,6 +52,13 @@ public class CheckBatchDialog extends JDialog {
                         currVolArray.get(0) + ", " + currVolArray.get(1) + " and " +
                         currVolArray.get(2) + " cubic metres respectively.");
             }
+        } else if (prodNamesArray.size() == 1) {
+            prodNameLabel = new JLabel("A batch cannot be made because only " +
+                    "one product i.e. " + prodNamesArray.get(0) + " is currently " +
+                    "available i.e. in bin " + feedBinsArray.get(0).getBinNumber() + ".");
+
+            currVolumeLabel.setText("At least two products with " +
+                    "quantities are needed before a batch can be made.");
         }
 
         OKButton = new JButton("OK");
