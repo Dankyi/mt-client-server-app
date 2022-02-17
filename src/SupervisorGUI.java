@@ -16,7 +16,6 @@ public class SupervisorGUI extends JFrame implements Runnable, Observer {
     private JMenuItem checkBinsStatus;
     private JMenuItem exit;
 
-
     public SupervisorGUI(ArrayList<FeedBin> feedBinArray) {
         super();
         for (FeedBin fb : feedBinArray) {
@@ -31,19 +30,32 @@ public class SupervisorGUI extends JFrame implements Runnable, Observer {
     private void initSupGUI() {
         jmbTop = new JMenuBar();
         binMenu = new JMenu("Supervisor");
+        checkBinsStatus = new JMenuItem("Check Status of Bins");
         checkBatch = new JMenuItem("Check Batch");
-        report = new JMenuItem("Report");
-        makeBatch = new JMenuItem("Make up Batch");
-        checkBinsStatus = new JMenuItem("Check Bins Status");
+        report = new JMenuItem("Batch Report");
+        makeBatch = new JMenuItem("Make up a Batch");
         exit = new JMenuItem("Exit");
+        binMenu.add(checkBinsStatus);
         binMenu.add(checkBatch);
         binMenu.add(report);
         binMenu.add(makeBatch);
-        binMenu.add(checkBinsStatus);
         binMenu.add(new JSeparator());
         binMenu.add(exit);
         jmbTop.add(binMenu);
         setJMenuBar(jmbTop);
+
+        exit.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                System.exit(0);
+            }
+        });
+
+        checkBinsStatus.addActionListener(new ActionListener() {
+            public void actionPerformed (ActionEvent evt) {
+                CheckStatusDialog id = new CheckStatusDialog(SupervisorGUI.this, true, feedBins);
+                id.setVisible(true);
+            }
+        });
     }
 
     @Override
