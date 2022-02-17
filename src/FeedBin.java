@@ -1,8 +1,10 @@
+import java.util.Observable;
+
 /*
     A class for modelling the state and operation of an 'animal feed bin'
     as used in the factory production of animal feedstuffs
 */
-public class FeedBin {
+public class FeedBin extends Observable {
     // FeedBin instance variables
     private int binNumber;
     private String productName;
@@ -23,6 +25,7 @@ public class FeedBin {
     public boolean setProductName(String newName) {
         if (currentVolume == 0.0) {
             productName = newName;
+            notifyObs();
             return true;
         } else
             return false;
@@ -44,12 +47,14 @@ public class FeedBin {
     public void flush() {
         productName = "--";
         currentVolume = 0.0;
+        notifyObs();
     }
 
     // method addProduct - can only add if there is sufficient room
     public boolean addProduct(double volume) {
         if ( maxVolume >= currentVolume + volume ) {
             currentVolume += volume;
+            notifyObs();
             return true;
         } else
             return false;
@@ -60,6 +65,7 @@ public class FeedBin {
     public double removeProduct(double volume) {
         if (currentVolume >= volume) {
             currentVolume -= volume;
+            notifyObs();
         }
         else {
             volume = currentVolume;
@@ -83,6 +89,12 @@ public class FeedBin {
 
     public double getCurrentVolume() {
         return currentVolume;
+    }
+
+    private void notifyObs() {
+        // fire notifications to any registered Observers
+        setChanged();
+        notifyObservers();
     }
 }
 

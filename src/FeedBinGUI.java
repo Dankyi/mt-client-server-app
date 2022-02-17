@@ -1,8 +1,10 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Observable;
+import java.util.Observer;
 
-public class FeedBinGUI extends JFrame {
+public class FeedBinGUI extends JFrame implements Runnable, Observer {
     private JMenuBar jmbTop;
     private JMenu binMenu;
     private JMenuItem inspect;
@@ -16,9 +18,10 @@ public class FeedBinGUI extends JFrame {
     // here's the system object behind the interface
     private FeedBin bin;
 
-    public FeedBinGUI() {
+    public FeedBinGUI(FeedBin feedBin) {
         // create a feed bin
-        bin = new FeedBin(1, "--");
+        bin = feedBin;
+//        bin.addObserver(this);
 
         // Create the menu components
         jmbTop = new JMenuBar();
@@ -105,7 +108,7 @@ public class FeedBinGUI extends JFrame {
             }
         });
 
-        setTitle ("Feed Bin Controller");
+        setTitle("Feed Bin Controller");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setSize(400, 300);
     }
@@ -124,9 +127,13 @@ public class FeedBinGUI extends JFrame {
         flush.setEnabled(true);
     }
 
-    public static void main (String[] args) {
-        FeedBinGUI demo = new FeedBinGUI();
-        demo.setLocation(400,400);
-        demo.setVisible(true);
+    @Override
+    public void run() {
+        this.setVisible(true);
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        System.out.println("FeedBinGUI update called");
     }
 }
