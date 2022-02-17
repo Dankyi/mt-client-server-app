@@ -52,8 +52,15 @@ public class SupervisorGUI extends JFrame implements Runnable, Observer {
 
         checkBinsStatus.addActionListener(new ActionListener() {
             public void actionPerformed (ActionEvent evt) {
-                CheckStatusDialog id = new CheckStatusDialog(SupervisorGUI.this, true, feedBins);
-                id.setVisible(true);
+                CheckStatusDialog binStatus = new CheckStatusDialog(SupervisorGUI.this, true, feedBins);
+                binStatus.setVisible(true);
+            }
+        });
+
+        checkBatch.addActionListener(new ActionListener() {
+            public void actionPerformed (ActionEvent evt) {
+                CheckBatchDialog checkatch = new CheckBatchDialog(SupervisorGUI.this, true, feedBins);
+                checkatch.setVisible(true);
             }
         });
     }
