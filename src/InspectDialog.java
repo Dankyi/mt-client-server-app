@@ -18,7 +18,7 @@ public class InspectDialog extends JDialog {
         bin = binObject;
         getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
         panel = new JPanel();
-        panel.setLayout(new GridLayout(4,2) );
+        panel.setLayout(new GridLayout(4,2));
         label = new JLabel[8];
         label[0] = new JLabel("Bin Number: ");
         label[2] = new JLabel("Contains: ");

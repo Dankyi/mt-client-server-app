@@ -60,9 +60,17 @@ public class SupervisorGUI extends JFrame implements Runnable, Observer {
 
         checkBatch.addActionListener(new ActionListener() {
             public void actionPerformed (ActionEvent evt) {
-                CheckBatchDialog checkatch = new CheckBatchDialog(
+                CheckBatchDialog chkBatch = new CheckBatchDialog(
                         SupervisorGUI.this, true, feedBinsArray);
-                checkatch.setVisible(true);
+                chkBatch.setVisible(true);
+            }
+        });
+
+        makeBatch.addActionListener(new ActionListener() {
+            public void actionPerformed (ActionEvent evt) {
+                MakeBatchDialog mkBatch = new MakeBatchDialog(
+                        SupervisorGUI.this, true, feedBinsArray);
+                mkBatch.setVisible(true);
             }
         });
     }
