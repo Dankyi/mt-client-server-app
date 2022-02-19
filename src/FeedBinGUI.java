@@ -21,7 +21,7 @@ public class FeedBinGUI extends JFrame implements Runnable, Observer {
     public FeedBinGUI(FeedBin feedBin) {
         // create a feed bin
         bin = feedBin;
-//        bin.addObserver(this);
+        bin.addObserver(this);
 
         // Create the menu components
         jmbTop = new JMenuBar();
@@ -113,7 +113,8 @@ public class FeedBinGUI extends JFrame implements Runnable, Observer {
             }
         });
 
-        setTitle("Feed Bin Controller");
+        setTitle("FeedBin Controller (Bin " +
+                bin.getBinNumber() + ")");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setSize(400, 300);
     }
@@ -140,5 +141,7 @@ public class FeedBinGUI extends JFrame implements Runnable, Observer {
     @Override
     public void update(Observable o, Object arg) {
         System.out.println("FeedBinGUI update called");
+        setTitle("FeedBin Controller (Bin " +
+                bin.getBinNumber() + ")");
     }
 }

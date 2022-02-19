@@ -11,7 +11,6 @@ public class SupervisorGUI extends JFrame implements Runnable, Observer {
     private JMenuBar jmbTop;
     private JMenu binMenu;
     private JMenuItem checkBatch;
-    private JMenuItem report;
     private JMenuItem makeBatch;
     private JMenuItem checkBinsStatus;
     private JMenuItem exit;
@@ -32,12 +31,10 @@ public class SupervisorGUI extends JFrame implements Runnable, Observer {
         binMenu = new JMenu("Supervisor");
         checkBinsStatus = new JMenuItem("Check Status of Bins");
         checkBatch = new JMenuItem("Check Batch");
-        report = new JMenuItem("Batch Report");
         makeBatch = new JMenuItem("Make up a Batch");
         exit = new JMenuItem("Exit");
         binMenu.add(checkBinsStatus);
         binMenu.add(checkBatch);
-        binMenu.add(report);
         binMenu.add(makeBatch);
         binMenu.add(new JSeparator());
         binMenu.add(exit);
