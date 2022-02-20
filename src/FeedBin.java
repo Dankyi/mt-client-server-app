@@ -55,7 +55,7 @@ public class FeedBin extends Observable {
 
     // method addProduct - can only add if there is sufficient room
     public boolean addProduct(double volume) {
-        if ( maxVolume >= currentVolume + volume ) {
+        if (maxVolume >= currentVolume + volume) {
             currentVolume += volume;
             notifyObs();
             return true;
@@ -63,18 +63,16 @@ public class FeedBin extends Observable {
             return false;
     }
 
-    // method removeProduct - returns actual volume removed if insufficient
-    // in bin to remove full amount requested
-    public double removeProduct(double volume) {
+    // method removeProduct - removes quantity requested only if
+    // its not greater than the currently available quantity
+    public boolean removeProduct(double volume) {
         if (currentVolume >= volume) {
             currentVolume -= volume;
             notifyObs();
+            return true;
+        } else {
+            return false;
         }
-        else {
-            volume = currentVolume;
-            currentVolume = 0.0;
-        }
-        return volume; // actual amount removed - may be less than requested
     }
 
     // accessor methods for each FeedBin instance variable
