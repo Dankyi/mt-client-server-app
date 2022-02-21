@@ -161,6 +161,13 @@ public class MakeBatchDialog extends JDialog implements ActionListener {
                         "Error!",
                         JOptionPane.ERROR_MESSAGE,
                         null);
+            } else if (!batchQty.matches(pattern)) {
+                JOptionPane.showMessageDialog(this,
+                        "Batch quantity must be a " +
+                                "positive number or decimal.",
+                        "Error!",
+                        JOptionPane.ERROR_MESSAGE,
+                        null);
             } else {
                 if (prodNamesArray.size() == 1) {
                     JOptionPane.showMessageDialog(this,
