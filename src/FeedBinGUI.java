@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
@@ -21,7 +22,6 @@ public class FeedBinGUI extends JFrame implements Runnable, Observer {
     private final String defaultCBStr = "--Select a Bin--";
     private FeedBin bin;
     private ArrayList<FeedBin> feedBinsArray = new ArrayList<>();
-
 
     public FeedBinGUI(ArrayList<FeedBin> feedBinArray) {
         for (FeedBin feedBin : feedBinArray) {
@@ -199,5 +199,13 @@ public class FeedBinGUI extends JFrame implements Runnable, Observer {
         System.out.println("FeedBinGUI update called");
         setTitle("FeedBin Controller (Bin " +
                 bin.getBinNumber() + ")");
+
+        // Call the bin update method to update the bin
+        // in the database anytime there is a change
+        try {
+            bin.updateBinInDB();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -36,7 +36,7 @@ public class CheckBatchDialog extends JDialog {
 
         if (prodNamesArray.size() > 1) {
             if (prodNamesArray.size() == 2) {
-                prodNameLabel.setText("A batch can be made out of these two currently " +
+                prodNameLabel.setText("A batch could be made out of these two currently " +
                         "available products: " + prodNamesArray.get(0) + " and "
                         + prodNamesArray.get(1));
 
@@ -44,7 +44,7 @@ public class CheckBatchDialog extends JDialog {
                         currVolArray.get(0) + " and " + currVolArray.get(1) +
                         " cubic metres respectively.");
             } else {
-                prodNameLabel.setText("A batch can be made out from any two of these three " +
+                prodNameLabel.setText("A batch could be made out from any two of these three " +
                         "currently available products: " + prodNamesArray.get(0) +
                         ", " + prodNamesArray.get(1) + " and " + prodNamesArray.get(2));
 

@@ -1,3 +1,6 @@
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.Observable;
 
 /*
@@ -17,6 +20,13 @@ public class FeedBin extends Observable {
         productName = prodName; // product in bin
         maxVolume = 40.0; // maximum capacity in cubic metres
         currentVolume = 0.0; // bin starts in the empty state
+    }
+
+    public FeedBin(int binNumber, String productName, double maxVolume, double currentVolume) {
+        this.binNumber = binNumber;
+        this.productName = productName;
+        this.maxVolume = maxVolume;
+        this.currentVolume = currentVolume;
     }
 
     // method setProductName - used to change the product assigned to the bin
@@ -96,6 +106,44 @@ public class FeedBin extends Observable {
     private void notifyObs() {
         setChanged();
         notifyObservers();
+    }
+
+    // This updates a bin's details in the database
+    public void updateBinInDB() throws SQLException {
+        //1. Connect to the database
+        DBConfig dbConfig = new DBConfig();
+        Connection conn = dbConfig.getConnection();
+        PreparedStatement preparedStatement = null;
+
+        try {
+            // 2. Create a string that holds our SQL update command with ? for user inputs
+            String sql = "UPDATE feedbins SET binnumber = ?, productname = ?, maxvolume = ?, currentvolume = ? "
+                    + "WHERE binnumber = ?";
+
+            // 3. Prepare the query against SQL Injection
+            preparedStatement = conn.prepareStatement(sql);
+
+            // 4. Bind the parameters
+            preparedStatement.setInt(1, binNumber);
+            preparedStatement.setString(2, productName);
+            preparedStatement.setDouble(3, maxVolume);
+            preparedStatement.setDouble(4, currentVolume);
+            preparedStatement.setInt(5, binNumber);
+
+            // 5. Run the command on the SQL Server
+            preparedStatement.executeUpdate();
+            preparedStatement.close();
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+        finally {
+            if (conn != null){
+                conn.close();
+            }
+            if (preparedStatement != null){
+                preparedStatement.close();
+            }
+        }
     }
 }
 
