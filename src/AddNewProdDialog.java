@@ -81,7 +81,6 @@ public class AddNewProdDialog extends JDialog implements ActionListener {
                             JOptionPane.ERROR_MESSAGE,
                             null);
                 } else {
-                    //bin = new FeedBin(Integer.parseInt(binNum), prodName);
                     bin.setBinNumber(Integer.parseInt(binNum));
                     bin.setProductName(prodName);
                     bin.setMaxVolume(40.0);

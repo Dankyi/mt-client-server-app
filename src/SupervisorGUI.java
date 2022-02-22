@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
@@ -82,6 +83,18 @@ public class SupervisorGUI extends JFrame implements Runnable, Observer {
 
     @Override
     public void update(Observable o, Object arg) {
+        // Call the bin update method to update the bin
+        // in the database anytime there is a change
+        try {
+            if (bin != null) {
+                bin.updateBinInDB();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        // This is just to show on the console
+        // what's going on behind the scenes
         System.out.println("=============================");
         System.out.println("SupervisorGUI update called");
         for (FeedBin fb : feedBinsArray) {

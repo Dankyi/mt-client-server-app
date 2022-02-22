@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class MakeBatchDialog extends JDialog implements ActionListener {
@@ -104,10 +105,10 @@ public class MakeBatchDialog extends JDialog implements ActionListener {
         int prodIndex2 = prod2Combox.getSelectedIndex();
         String product1Pct = prod1PctTF.getText();
         String product2Pct = prod2PctTF.getText();
-        double qty1 = 0.0;
-        double qty2 = 0.0;
-        double calcProd1Qty = 0.0;
-        double calcProd2Qty = 0.0;
+        double currProd1Qty = 0.0;
+        double currProd2Qty = 0.0;
+        double prod1QtyToRemove = 0.0;
+        double prod2QtyToRemove = 0.0;
         String batchQty = batchQtyTF.getText();
 
         // Regex for all positive numbers including decimals
@@ -178,57 +179,62 @@ public class MakeBatchDialog extends JDialog implements ActionListener {
                             null);
                 } else if (prodNamesArray.size() == 2) {
                     if (prodIndex1 == 1 && prodIndex2 == 2) {
-                        qty1 = Double.parseDouble(currVolArray.get(0));
-                        calcProd1Qty = (Double.parseDouble(product1Pct)/100) * qty1;
-                        qty2 = Double.parseDouble(currVolArray.get(1));
-                        calcProd2Qty = (Double.parseDouble(product2Pct)/100) * qty2;
+                        currProd1Qty = Double.parseDouble(currVolArray.get(0));
+                        currProd2Qty = Double.parseDouble(currVolArray.get(1));
                     } else if (prodIndex1 == 2 && prodIndex2 == 1) {
-                        qty1 = Double.parseDouble(currVolArray.get(1));
-                        calcProd1Qty = (Double.parseDouble(product1Pct)/100) * qty1;
-                        qty2 = Double.parseDouble(currVolArray.get(0));
-                        calcProd2Qty = (Double.parseDouble(product2Pct)/100) * qty2;
+                        currProd1Qty = Double.parseDouble(currVolArray.get(1));
+                        currProd2Qty = Double.parseDouble(currVolArray.get(0));
                     }
                 } else if (prodNamesArray.size() == 3) {
                     if (prodIndex1 == 1 && prodIndex2 == 2) {
-                        qty1 = Double.parseDouble(currVolArray.get(0));
-                        calcProd1Qty = (Double.parseDouble(product1Pct)/100) * qty1;
-                        qty2 = Double.parseDouble(currVolArray.get(1));
-                        calcProd2Qty = (Double.parseDouble(product2Pct)/100) * qty2;
+                        currProd1Qty = Double.parseDouble(currVolArray.get(0));
+                        currProd2Qty = Double.parseDouble(currVolArray.get(1));
                     } else if (prodIndex1 == 1 && prodIndex2 == 3) {
-                        qty1 = Double.parseDouble(currVolArray.get(0));
-                        calcProd1Qty = (Double.parseDouble(product1Pct)/100) * qty1;
-                        qty2 = Double.parseDouble(currVolArray.get(2));
-                        calcProd2Qty = (Double.parseDouble(product2Pct)/100) * qty2;
+                        currProd1Qty = Double.parseDouble(currVolArray.get(0));
+                        currProd2Qty = Double.parseDouble(currVolArray.get(2));
                     } else if (prodIndex1 == 2 && prodIndex2 == 1) {
-                        qty1 = Double.parseDouble(currVolArray.get(1));
-                        calcProd1Qty = (Double.parseDouble(product1Pct)/100) * qty1;
-                        qty2 = Double.parseDouble(currVolArray.get(0));
-                        calcProd2Qty = (Double.parseDouble(product2Pct)/100) * qty2;
+                        currProd1Qty = Double.parseDouble(currVolArray.get(1));
+                        currProd2Qty = Double.parseDouble(currVolArray.get(0));
                     } else if (prodIndex1 == 2 && prodIndex2 == 3) {
-                        qty1 = Double.parseDouble(currVolArray.get(1));
-                        calcProd1Qty = (Double.parseDouble(product1Pct)/100) * qty1;
-                        qty2 = Double.parseDouble(currVolArray.get(2));
-                        calcProd2Qty = (Double.parseDouble(product2Pct)/100) * qty2;
+                        currProd1Qty = Double.parseDouble(currVolArray.get(1));
+                        currProd2Qty = Double.parseDouble(currVolArray.get(2));
                     } else if (prodIndex1 == 3 && prodIndex2 == 1) {
-                        qty1 = Double.parseDouble(currVolArray.get(2));
-                        calcProd1Qty = (Double.parseDouble(product1Pct)/100) * qty1;
-                        qty2 = Double.parseDouble(currVolArray.get(0));
-                        calcProd2Qty = (Double.parseDouble(product2Pct)/100) * qty2;
+                        currProd1Qty = Double.parseDouble(currVolArray.get(2));
+                        currProd2Qty = Double.parseDouble(currVolArray.get(0));
                     } else if (prodIndex1 == 3 && prodIndex2 == 2) {
-                        qty1 = Double.parseDouble(currVolArray.get(2));
-                        calcProd1Qty = (Double.parseDouble(product1Pct)/100) * qty1;
-                        qty2 = Double.parseDouble(currVolArray.get(1));
-                        calcProd2Qty = (Double.parseDouble(product2Pct)/100) * qty2;
+                        currProd1Qty = Double.parseDouble(currVolArray.get(2));
+                        currProd2Qty = Double.parseDouble(currVolArray.get(1));
                     }
                 }
-                if ((calcProd1Qty + calcProd2Qty) == Double.parseDouble(batchQty)) {
+
+                prod1QtyToRemove = (Double.parseDouble(product1Pct)/100) * Double.parseDouble(batchQty);
+                prod2QtyToRemove = (Double.parseDouble(product2Pct)/100) * Double.parseDouble(batchQty);
+
+                if ((currProd1Qty >= prod1QtyToRemove) && (currProd2Qty >= prod2QtyToRemove)) {
+                    // Since the defaultCBStr is an extra index, we deduct 1
+                    // to obtain the actual FeedBin object in the Arraylist
+                    feedBinsArray.get(prodIndex1-1).removeProduct(prod1QtyToRemove);
+                    feedBinsArray.get(prodIndex2-1).removeProduct(prod2QtyToRemove);
+
+                    // Update the database of the changes to each of the two bins
+                    try {
+                        feedBinsArray.get(prodIndex1-1).updateBinInDB();
+                        feedBinsArray.get(prodIndex2-1).updateBinInDB();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+
+                    double currVol1 = feedBinsArray.get(prodIndex1-1).getCurrentVolume();
+                    double currVol2 = feedBinsArray.get(prodIndex2-1).getCurrentVolume();
                     JOptionPane.showMessageDialog(this,
                             "A batch of " + batchQty + " cubic metres of " +
                                     "product " + prod1Name + " and " + prod2Name +
-                                    " \ncan be made. " + calcProd1Qty + " and " +
-                                    calcProd2Qty + " cubic metres respectively, are " +
-                                    "\nthe required volumes/quantities needed to be " +
-                                    "removed \nfrom each of the products.",
+                                    " \nhas been made successfully. The volumes that" +
+                                    " have been removed \nfrom each of the products " +
+                                    "are: " + prod1QtyToRemove + " and " + prod2QtyToRemove +
+                                    " cubic metres \nrespectively. The products now have " +
+                                    "current volumes of: " + currVol1 + " and \n" + currVol2 +
+                                    " respectively.",
                             "Batch Info",
                             JOptionPane.INFORMATION_MESSAGE,
                             null);
@@ -237,10 +243,9 @@ public class MakeBatchDialog extends JDialog implements ActionListener {
                             "A batch of " + batchQty + " cubic metres cannot be " +
                                     "made. The calculated \nvolumes/quantities required to " +
                                     "be removed from " + prod1Name + " \nand " + prod2Name +
-                                    " are " + calcProd1Qty + " and " + calcProd2Qty + " " +
-                                    "respectively, a total of " + (calcProd1Qty + calcProd2Qty) +
-                                    " \ncubic metres. Adjust the percentage values to meet \nyour " +
-                                    "required batch quantity.",
+                                    " are " + prod1QtyToRemove + " and " + prod2QtyToRemove +
+                                    " respectively but the current \nvolumes of each are " +
+                                    currProd1Qty + " and " + currProd2Qty + " respectively.",
                             "Batch Info",
                             JOptionPane.ERROR_MESSAGE,
                             null);

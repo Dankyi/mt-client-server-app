@@ -197,13 +197,20 @@ public class FeedBinGUI extends JFrame implements Runnable, Observer {
     @Override
     public void update(Observable o, Object arg) {
         System.out.println("FeedBinGUI update called");
-        setTitle("FeedBin Controller (Bin " +
-                bin.getBinNumber() + ")");
+
+        if (binsCombox.getSelectedItem().equals(defaultCBStr)) {
+            setTitle("FeedBin Controller");
+        } else {
+            setTitle("FeedBin Controller (Bin " +
+                    bin.getBinNumber() + ")");
+        }
 
         // Call the bin update method to update the bin
         // in the database anytime there is a change
         try {
-            bin.updateBinInDB();
+            if (bin != null) {
+                bin.updateBinInDB();
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
